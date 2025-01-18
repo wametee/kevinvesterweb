@@ -1,0 +1,35 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "question": "Who was the father of Jesus?",
+        "choices": ["John", "Joseph", "James", "Zebedee"],
+        "correctAnswer": "Joseph"
+      },
+      {
+        "id": 2,
+        "question": "What is the capital of France?",
+        "choices": ["Berlin", "Madrid", "Paris", "Lisbon"],
+        "correctAnswer": "Paris"
+      },
+      {
+        "id": 3,
+        "question": "Which planet is known as the Red Planet?",
+        "choices": ["Earth", "Mars", "Jupiter", "Saturn"],
+        "correctAnswer": "Mars"
+      },
+      {
+        "id": 4,
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "choices": ["William Shakespeare", "Charles Dickens", "Mark Twain", "Jane Austen"],
+        "correctAnswer": "William Shakespeare"
+      },
+      {
+        "id": 5,
+        "question": "What is the boiling point of water?",
+        "choices": ["90°C", "100°C", "120°C", "80°C"],
+        "correctAnswer": "100°C"
+      }
+    ]
+  }
+  
