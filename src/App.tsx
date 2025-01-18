@@ -24,18 +24,18 @@ const App: React.FC = () => {
 
   const handleNextQuestion = () => {
     if (!selectedAnswer) {
-      setFeedback("no-answer"); // Show sad emoji
+      setFeedback("no-answer"); 
       return;
     }
 
     const isCorrect = selectedAnswer === questions[currentQuestionIndex].correctAnswer;
 
     if (isCorrect) {
-      setFeedback("correct"); // Show happy emoji
-      setScore((prevScore) => prevScore + 3); // Increase score by 3
+      setFeedback("correct"); 
+      setScore((prevScore) => prevScore + 3); 
     } else {
-      setFeedback("wrong"); // Show wrong emoji
-      return; // Prevent moving to the next question
+      setFeedback("wrong");
+      return; 
     }
 
     setTimeout(() => {
@@ -74,11 +74,7 @@ const App: React.FC = () => {
           selectedAnswer={selectedAnswer}
           handleSelectAnswer={handleSelectAnswer}
         />
-
-        {/* Feedback Emoji */}
         <FeedbackImage feedback={feedback} />
-
-        {/* Navigation Buttons */}
         <div className="flex justify-between items-center mt-6">
           <button
             onClick={handlePrevQuestion}
