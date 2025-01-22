@@ -11,11 +11,19 @@ const App: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | "none" | "no-answer">("none");
   const [score, setScore] = useState(0);
+  const [error, setError] = useState<string | null>(null); // Error state
 
   useEffect(() => {
-    axios.get("http://localhost:5000/questions").then((response) => {
-      setQuestions(response.data);
-    });
+    // Fetch questions from the backend
+    axios
+      .get("https://kevodb.onrender.com/questions") // Change to actual endpoint
+      .then((response) => {
+        setQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching questions:", error);
+        setError("Failed to load questions. Please try again later.");
+      });
   }, []);
 
   const handleSelectAnswer = (answer: string) => {
@@ -35,7 +43,6 @@ const App: React.FC = () => {
       setScore((prevScore) => prevScore + 3);
     } else {
       setFeedback("wrong");
-      return;
     }
 
     setTimeout(() => {
@@ -67,6 +74,13 @@ const App: React.FC = () => {
         </span>
       </div>
 
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-500 text-white p-4 rounded-md mb-4">
+          <p>{error}</p>
+        </div>
+      )}
+
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-white shadow-lg rounded-lg p-6 text-gray-900">
         {questions.length > 0 ? (
           <>
@@ -78,14 +92,17 @@ const App: React.FC = () => {
             <FeedbackImage feedback={feedback} />
           </>
         ) : (
-          <p className="text-gray-600">No questions available.</p>
+          !error && <p className="text-gray-600">Loading questions...</p> // Display loading message if no questions and no error
         )}
+
         <div className="flex justify-between items-center mt-6">
           <button
             onClick={handlePrevQuestion}
             disabled={currentQuestionIndex === 0}
             className={`p-2 rounded-full transition ${
-              currentQuestionIndex === 0 ? "text-gray-400 cursor-not-allowed" : "text-blue-500 hover:bg-gray-200"
+              currentQuestionIndex === 0
+                ? "text-gray-400 cursor-not-allowed"
+                : "text-blue-500 hover:bg-gray-200"
             }`}
           >
             <ChevronLeftIcon className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -102,7 +119,9 @@ const App: React.FC = () => {
             disabled={currentQuestionIndex === questions.length - 1}
             onClick={handleNextQuestion}
             className={`p-2 rounded-full transition ${
-              currentQuestionIndex === questions.length - 1 ? "text-gray-400 cursor-not-allowed" : "text-blue-500 hover:bg-gray-200"
+              currentQuestionIndex === questions.length - 1
+                ? "text-gray-400 cursor-not-allowed"
+                : "text-blue-500 hover:bg-gray-200"
             }`}
           >
             <ChevronRightIcon className="w-6 h-6 sm:w-8 sm:h-8" />
